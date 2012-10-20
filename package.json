@@ -1,0 +1,26 @@
+{
+  "name": "stl.js",
+  "version": "0.0.1",
+  "author": "Wil Chung",
+  "description": "Read, parse, and convert STL files",
+  "keywords": ["stl", "3D model", "3D printing", "stereolithography"],
+  "homepage": "http://github.com/cubehero/stl.js",
+  "bugs": {
+    "url": "http://github.com/cubehero/stl.js/issues"
+  },
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/cubehero/stl.js.git"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "vows": "0.6.x",
+    "police": "0.2.x",
+    "docco": "0.4.x"
+  },
+  "engine": {
+    "node": "0.6.x",
+    "npm": "1.1.x"
+  }
+}

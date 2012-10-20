@@ -1,0 +1,3 @@
+VMAJOR   = 2
+VMINOR   = 5
+VPATCH   = 0

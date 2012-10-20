@@ -1,0 +1,38 @@
+Installation instructions for stl2pov 2.5.0, released on 2011-06-22.
+
+Building the program
+--------------------
+
+Have a look at the Makefile. At the top of the Makefile there are some
+options that can be customized. Usually it is fine to leave them as they are.
+
+If you want to use different compiler and linker options, modify the CFLAGS
+and LFLAGS respectively. If you want to use another compiler instead of
+gcc, you will probably have to change them, along with the CC variable that
+specifies the compiler. If you don't know what this means, leave CC,
+CFLAGS and LFLAGS as they are.
+
+The variables whose name ends in DIR specify where different parts of the
+program are installed.
+
+It is usually not necessary to edit the makefile below the line 
+"##### Maintainer stuff goes here:"
+
+To build the program, simply issue the "make" command. This should work
+without producing errors.
+
+If it fails because the compiler can't find a header file, first check if
+you have it installed, and then add an "-I" flag describing the location of
+the header file to CFLAGS. If it can't find a library, add the appropriate
+"-L" option to LFLAGS. See the compiler manual for further information.
+
+
+Installing the program
+----------------------
+
+If building the program succeeded, you should issue the "su" command to
+become root, and then give the "make install" command from the source
+directory to install the program.
+
+To remove the program, use "make uninstall" from the source directory as
+root.

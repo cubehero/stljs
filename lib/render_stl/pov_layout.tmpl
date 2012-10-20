@@ -1,0 +1,82 @@
+#include "{{INCLUDE_FILE}}"
+// #include "{{BASE_PATH}}/axes_macro.inc"
+#include "math.inc"
+#include "finish.inc"
+#include "transforms.inc"
+
+
+background {color rgb 1}
+
+light_source {
+        <-500,500,400> 
+        rgb 1
+        shadowless        
+}
+
+global_settings {
+  assumed_gamma 2
+}
+
+#declare Min = min_extent({{MODELNAME}});
+#declare Max = max_extent({{MODELNAME}});
+
+#declare bottom_diag = sqrt(pow(Max.y - Min.y, 2) + pow(Max.x - Min.x, 2));
+#debug concat("bottom_diag:", str(bottom_diag, 5, 0))
+#declare box_diag = sqrt(pow(bottom_diag, 2) + pow(Max.z - Min.z, 2));
+#debug concat("box_diag:", str(box_diag, 5, 0))
+
+
+#declare look_angle = degrees(tanh((Max.z - Min.z) / (bottom_diag / 2)));
+#declare look_at_z = (Max.z - Min.z) / 2;
+#debug concat("look_at:", str(look_at_z, 5, 0))
+
+camera {
+        orthographic
+        location <0,box_diag + 1,0>
+        rotate <look_angle,0,40>
+        look_at <0,0,look_at_z>
+}
+
+sky_sphere
+{
+	pigment
+	{
+		gradient y
+		color_map
+		{
+			[0.0 rgb <1.0,1.0,1.0>]		//153, 178.5, 255	//150, 240, 192
+			[0.7 rgb <0.9,0.9,0.9>]		//  0,  25.5, 204	//155, 240, 96
+		}
+		scale 2
+		translate 1
+	}
+}
+
+object {
+  {{MODELNAME}}
+  texture {
+    pigment {color <1,1,1>}
+    finish {phong 0.0}
+  }
+}
+
+// the coordinate grid and axes
+/*
+Axes_Macro
+(
+	100,	// Axes_axesSize,	The distance from the origin to one of the grid's edges.	(float)
+	500/1,	// Axes_majUnit,	The size of each large-unit square.	(float)
+	100,	// Axes_minUnit,	The number of small-unit squares that make up a large-unit square.	(integer)
+	0.01,	// Axes_thickRatio,	The thickness of the grid lines (as a factor of axesSize).	(float)
+	on,	// Axes_aBool,		Turns the axes on/off. (boolian)
+	on,	// Axes_mBool,		Turns the minor units on/off. (boolian)
+	off,	// Axes_xBool,		Turns the plane perpendicular to the x-axis on/off.	(boolian)
+	off,	// Axes_yBool,		Turns the plane perpendicular to the y-axis on/off.	(boolian)
+	on	// Axes_zBool,		Turns the plane perpendicular to the z-axis on/off.	(boolian)
+)
+
+object
+{
+	Axes_Object
+}
+*/

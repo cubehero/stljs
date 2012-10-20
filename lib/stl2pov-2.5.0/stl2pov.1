@@ -1,0 +1,167 @@
+.\" -*- nroff -*-
+.\" Time-stamp: <2011-06-22 20:54:59 rsmith>
+.\"
+.\" stl2pov/stl2pov.1
+.\" Copyright © 2004--2009,2011 R.F. Smith <rsmith@xs4all.nl>
+.\" All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.TH stl2pov 1 "2011-06-22" "version 2.5.0" ""
+.SH NAME
+stl2pov \- converts an STL file to a povray mesh
+.SH SYNOPSIS
+.B stl2pov
+.RB [ -s ]
+.RB [ -e 
+.IR distance ]
+.I filename.stl 
+.RI > outfile.inc
+.SH DESCRIPTION
+This program reads an STL (Standard Triangulation Language) file (both in
+binary and ASCII format) and
+extracts the vertex data. From these vertices it generates a mesh object
+suitable for rendering with the
+.BR povray (1)
+raytracer, and writes it to the standard output. This manual covers version
+2.5.0, released on 2011-06-22.
+.SH OPTIONS
+.TP
+.B -s
+Generate smooth triangles instead of normal triangles. See the 
+.BR povray (1)
+documentation for details on smooth triangles. If the STL file has
+relatively few triangles, the generated image can look faceted. Using this
+option can give a smoother rendered image. Although the program tries to
+avoid it, using this option may introduce small visual artifacts.
+.TP
+.BI -e dist
+Set the maximum distance between two points that are assumed to
+coincide. In previous versions this was fixed at 0.01 units, which is
+still the default, but you can change it now.
+.SH DIAGNOSTICS
+The program will abort if one of the following fatal errors is detected:
+.TP
+.BI "Could not open " "name" .
+The program tried to open the file
+.I name
+using
+.BR fopen (3)
+but failed. The program cannot continue because it cannot read the input file.
+.TP
+.BI "Could not determine the size of " "name" .
+The program tried to determine the size of the file
+.I name
+with 
+.BR fseek (3)
+and 
+.BR ftell (3)
+but failed. The program cannot continue because it doesn't know how much
+memory to allocate for the file.
+.TP
+.BI "Could not allocate " "num" " bytes of memory for " "name" .
+The program tried to allocate memory with
+.BR malloc (3)
+but failed. The program cannot continue because it cannot read the data
+file into memory.
+.TP
+.BI "Could not read " "name" .
+The program tried to read the file
+.I name
+with
+.BR fread (3)
+but this failed. The program cannot continue because it cannot read the
+input file.
+.TP
+.BI "Reading vertex[" "num" "] failed at """ "string"  """."
+The progam, using
+.BR strtod (3), 
+expected a floating point number but got
+.I string 
+instead.
+.TP
+.BI "Reading normal[" "num" "] failed at """ "string"  """."
+The progam, using
+.BR strtod (3), 
+expected a floating point number but got
+.I string 
+instead.
+.P
+The following warnings do not abort the program, they just point out some
+minor problems with the command-line.
+.TP
+.BI "Unrecognized option """ "string" """ ignored."
+The program saw an option that it didn't recognize, and ignored it.
+.TP
+.BI "Unreadable distance """ "string" """ ignored."
+The program could not parse the 
+.I distance
+argument to the
+.B -s
+option.
+.P
+.SH SEE ALSO
+.BR povray (1),
+.BR fopen (3),
+.BR fseek (3),
+.BR ftell (3),
+.BR fread (3),
+.BR strtod (3), 
+/usr/local/share/doc/stl2pov/README, /usr/local/share/doc/stl2pov/LICENSE
+.SH BUGS
+Using the smoothing option may sometimes result in visual artefacts on the
+rendered pictures. Setting the allowed distance between coinciding points
+too large will produce unwanted results. 
+.SH AUTHOR
+.nf
+stl2pov was written and is maintained by Roland Smith.
+.fi
+The latest version of this program is available at: 
+\fBhttp://www.xs4all.nl/~rsmith/software/\fP
+.SH LICENSE
+Copyright (C) 2004--2009,2011 R.F.Smith <rsmith@xs4all.nl>. All rights reserved.
+.P
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+.TP
+1. 
+Redistributions of source code must retain the above copyright notice, this
+list of conditions and the following disclaimer.
+.TP
+2.
+Redistributions in binary form must reproduce the above copyright notice,
+this list of conditions and the following disclaimer in the documentation
+and/or other materials provided with the distribution.
+.P
+THIS SOFTWARE IS PROVIDED BY AUTHOR AND CONTRIBUTORS ``AS IS'' AND ANY
+EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED.  IN NO EVENT SHALL AUTHOR OR CONTRIBUTORS BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+DAMAGE.
+.\" EOF stl2pov.1

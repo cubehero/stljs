@@ -1,0 +1,64 @@
+{
+  "comment": "STL parser: Backus-Naur Form for parser generation with Jison",
+
+  "moduleInclude": "require('./csg.js');\n",
+
+  "lex": {
+    "rules": [
+      ["\\s+",                    "/* skip whitespace */"],
+      ["vertex",                  "return 'VERTEX'"],
+      ["outer loop",              "return 'LOOP_BEGIN'"],
+      ["endloop",                 "return 'LOOP_END'"],
+      ["facet normal",            "return 'FACET_BEGIN'"],
+      ["endfacet",                "return 'FACET_END'"],
+      ["solid",                   "return 'SOLID_BEGIN'"],
+      ["endsolid",                "return 'SOLID_END'"],
+      ["\\-?\\d+(\\.\\d+)?([Ee]-?\\d+)?\\b", "return 'NUMBER'"],
+      ["[_a-zA-Z0-9]+\\b",              "return 'ID'"]
+    ]
+  },
+
+  "operators": [
+  ],
+
+  "start": "program",
+
+  "bnf": {
+    "program": [
+      ["solids", "return $1"]
+    ],
+
+    "solids": [
+      ["solids solid", "$1.push($2); $$ = $1;"],
+      ["solid", "$$ = [$1];"]
+    ],
+
+    "solid": [
+      ["SOLID_BEGIN ID facets SOLID_END ID", "$$ = { id: $2, polygons: $3 };"]
+    ],
+
+    "facets": [
+      ["facets facet", "$1.push($2); $$ = $1;"],
+      ["facet", "$$ = [$1];"]
+    ],
+
+    "facet": [
+      ["FACET_BEGIN NUMBER NUMBER NUMBER loop FACET_END",
+       "var normal = [parseFloat($2), parseFloat($3), parseFloat($4)];\nvar verticies = [];\nfor (var i = 0, len = $5.length; i < len; i++) {\nverticies.push(new CSG.Vertex($5[i], normal));}\nvar polygon = new CSG.Polygon(verticies);\n$$ = polygon;//console.log('polygon:');console.log(polygon);\n"]
+    ],
+
+    "loop": [
+      ["LOOP_BEGIN vertexes LOOP_END", "$$ = $2; //console.log('verticies');console.log($$);"]
+    ],
+
+    "vertexes": [
+      ["vertexes vertex", "$1.push($2); $$ = $1;"],
+      ["vertex", "$$ = [$1]"]
+    ],
+
+    "vertex": [
+      ["VERTEX NUMBER NUMBER NUMBER", "$$ = [parseFloat($2), parseFloat($3), parseFloat($4)];"]
+    ]
+  }
+}
+
