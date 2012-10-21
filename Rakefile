@@ -12,7 +12,8 @@ end
 
 desc "tests all the code"
 task :test do
-  puts `node spec/test_read.js`
+  IO.popen('node spec/test_read.js') { |f| f.each { |l| puts l } }
+  IO.popen('node spec/test_convert.js') { |f| f.each { |l| puts l } }
   puts "tests done!"
 end
 
