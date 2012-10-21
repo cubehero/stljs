@@ -5,7 +5,7 @@
   "description": "Read, parse, and convert STL files",
   "keywords": ["stl", "3D model", "3D printing", "stereolithography"],
   "script": {
-    "install": "lib/stl2pov-2.5.0"
+    "install": "cd lib/stl2pov-2.5.0; make"
   },
   "homepage": "http://github.com/cubehero/stl.js",
   "bugs": {
