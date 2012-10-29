@@ -1,6 +1,6 @@
 {
   "name": "stl.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Wil Chung",
   "description": "Read, parse, and convert STL files",
   "keywords": ["stl", "3D model", "3D printing", "stereolithography"],
