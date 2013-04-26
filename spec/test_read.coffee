@@ -1,5 +1,5 @@
 fs = require('fs')
-stl = require("../lib/stl")
+stl = require("../lib/stljs")
 
 #test_ascii_read_stl = () ->
 #  fileName = "spec/fixtures/coffeecup/current.stl"

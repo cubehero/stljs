@@ -1,4 +1,4 @@
-stl = require("../lib/stl")
+stl = require("../lib/stljs")
 child_proc = require("child_process")
 
 test_convert_stl = ->
