@@ -36,7 +36,7 @@ class Stl.Image
           (callback(err); return) if err?
 
           @locals.modelData = povData
-          @locals.modelName = name
+          @locals.modelName = name.replace(/\W+/, '_')
           thenInsertIntoTemplate()
 
         , (err) ->
