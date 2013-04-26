@@ -11,10 +11,10 @@ class Stl.PovRay
 
   _povFooters: () -> "}"
 
-  convert: (input, callback, progressCb) ->
+  convertFile: (filePath, callback, progressCb) ->
     output = ""
 
-    stl_parser.parse input,
+    stl_parser.parseFile filePath,
       (err, polygons, name) =>
         (callback(err); return) if err?
         output += @._povFooters()

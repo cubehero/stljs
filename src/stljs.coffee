@@ -47,9 +47,7 @@ Stl.file2PNG = (filePath, options, callback, progressCb) ->
   if (options.height == null || typeof options.height == 'undefined')
     options.height = 600
 
-  readStream = fs.createReadStream(filePath)
-  readStream.pause()
-  to_image.convert(readStream, options, callback, progressCb)
+  to_image.convertFile(filePath, options, callback, progressCb)
   
 
 # 

@@ -14,7 +14,7 @@ class Stl.Image
     @filePath = __dirname + "/../../template/povray.tmpl"
 
   # (input, [options], callback, [progressCb])
-  convert: (input) ->
+  convertFile: (filePath) ->
     options = {
       height: 240
       width: 320
@@ -31,7 +31,7 @@ class Stl.Image
       progresscb = arguments[3]
 
     start = convertSTL2POV = () =>
-      stl_pov.convert input
+      stl_pov.convertFile filePath
         , (err, povData, name) =>
           (callback(err); return) if err?
 
