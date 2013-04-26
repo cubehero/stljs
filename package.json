@@ -4,9 +4,6 @@
   "author": "Wil Chung",
   "description": "Read, parse, and convert STL files",
   "keywords": ["stl", "3D model", "3D printing", "stereolithography"],
-  "scripts": {
-    "install": "cd lib/stl2pov-2.5.0; make"
-  },
   "homepage": "http://github.com/cubehero/stljs",
   "bugs": {
     "url": "http://github.com/cubehero/stljs/issues"
