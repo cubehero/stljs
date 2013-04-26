@@ -31,8 +31,8 @@ class Stl.PovRay
 
     output += "  triangle {\n"
 
-    for vertex, idx in polygon
-      output += "    <#{vertex.points[0]}, #{vertex.points[1]}, #{vertex.points[2]}>"
+    for vertex, idx in polygon.verticies
+      output += "    <#{vertex[0]}, #{vertex[1]}, #{vertex[2]}>"
       output += ",\n" unless idx is (polygon.length - 1)
 
     output += "  }\n"
