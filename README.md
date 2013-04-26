@@ -13,6 +13,21 @@ This currently only works on node.js, but will expand to browser stl parsing soo
 npm install stljs
 ````
 
+If you'd like to also be able to render STL files, you'll need to install a program
+called [pov-ray](http://povray.org). 
+
+If you're on a mac, you can install it using homebrew.
+
+````
+brew install povray
+````
+
+If you're using ubuntu, you can install it using aptitude
+
+````
+aptitude install povray
+````
+
 ## Getting started
 
 You have an STL file that you want to read. Here's what you do:
@@ -45,6 +60,10 @@ stljs.imageify('teapot.stl', { width: 200, height: 100, dst: 'teapot.png' }
     # called on each polygon is processed
 )
 ````
+
+NOTE: In order to use this feature, you need to have pov-ray installed on your system
+already. This can be installed separately through 'aptitude' on linux and 'brew'
+on macs
 
 ## Contributing
 
