@@ -33,7 +33,7 @@ class Stl.PovRay
 
     for vertex, idx in polygon.verticies
       output += "    <#{vertex[0]}, #{vertex[1]}, #{vertex[2]}>"
-      output += ",\n" unless idx is (polygon.length - 1)
+      output += ",\n" unless idx is (polygon.verticies.length - 1)
 
     output += "  }\n"
     return output
