@@ -36,10 +36,11 @@ class Stl.Image
           (callback(err); return) if err?
 
           @locals.modelData = povData
-          @locals.modelName = name.replace(/\W+/, '_')
+          @locals.modelName = name
+
           thenInsertIntoTemplate()
 
-        , (err) ->
+        , (err, povPolygon, name) ->
           (callback(err); return) if err?
           progressCb() if progressCb?
 
@@ -63,7 +64,7 @@ class Stl.Image
 
       povcmd.stderr.on('data', (data) ->
         stderrStr += data.toString()
-        # console.error data.toString()
+        #console.error data.toString()
       )
 
       povcmd.on('exit', (code) =>

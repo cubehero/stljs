@@ -237,7 +237,7 @@ class Stl.BinaryParser extends Stl.Parser
 
       if isFirstData is true and totalLen > 84
         header = data.toString('ascii', 0, 80)
-        modelName = header
+        modelName = header.replace(/\s+/g, '').replace(/\W+/g, '_')
         isFirstData = false
         triangleData = data.slice(84)
       else
@@ -250,12 +250,13 @@ class Stl.BinaryParser extends Stl.Parser
                      @readVector(chunkBuf, 3 * VECTOR_SIZE)]
         attribute = chunkBuf.readUInt16LE(4 * VECTOR_SIZE)
 
-        solidModel.push({ verticies: verticies, normal: normal, attribute: attribute })
+        polygon = { verticies: verticies, normal: normal, attribute: attribute }
+        solidModel.push(polygon)
+        progressCb(null, polygon, modelName)
       )
     )
 
     input.on('end', () =>
-      console.log 'done!'
       callback(null, solidModel, modelName)
     )
 
@@ -279,7 +280,6 @@ class Stl.BinaryParser extends Stl.Parser
       if (i + numBytes) <= buffer.length
         chunk = buffer.slice(i, i + numBytes)
       else
-        console.log "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
         chunk = buffer.slice(i, buffer.length - i)
       iterator(chunk)
       i += numBytes

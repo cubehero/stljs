@@ -17,11 +17,13 @@ class Stl.PovRay
     stl_parser.parseFile filePath,
       (err, polygons, name) =>
         (callback(err); return) if err?
+
         output += @._povFooters()
         callback(null, output, name)
       , (err, polygon, name) =>
         if output.length is 0
           output += @._povHeaders(name)
+
         povPolygon = @.convertPolygon(polygon)
         output += povPolygon
         progressCb(err, povPolygon, name) if progressCb?
