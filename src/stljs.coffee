@@ -31,7 +31,7 @@ Stl.readFile = (filePath, callback, progressCb) ->
 
 # Converts an STL file to PNG
 # 
-# file2PNG(filePath, options, callback, [progressCb])
+# imageify(filePath, options, callback, [progressCb])
 # 
 # options parameter is required
 # 
@@ -40,7 +40,7 @@ Stl.readFile = (filePath, callback, progressCb) ->
 #   width:
 #   dst: desination. default "./result.png
 # 
-Stl.file2PNG = (filePath, options, callback, progressCb) ->
+Stl.imageify = (filePath, options, callback, progressCb) ->
   if options == null then options = {}
   if (options.width == null || typeof options.width == 'undefined')
     options.width = 800
