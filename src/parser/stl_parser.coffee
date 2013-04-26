@@ -252,7 +252,9 @@ class Stl.BinaryParser extends Stl.Parser
 
         polygon = { verticies: verticies, normal: normal, attribute: attribute }
         solidModel.push(polygon)
-        progressCb(null, polygon, modelName)
+
+        if progressCb? and not (typeof progressCb is 'undefined')
+          progressCb(null, polygon, modelName)
       )
     )
 
