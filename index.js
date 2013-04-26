@@ -1,1 +1,1 @@
-module.exports = require('./lib/stl');
+module.exports = require('./lib/stljs');
