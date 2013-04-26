@@ -1,2 +1,6 @@
 *.o
 lib/stl2pov-2.5.0/stl2pov
+src/*.js
+src/parser/*.js
+src/to/*.js
+spec/*.js
