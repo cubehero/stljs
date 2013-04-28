@@ -1,0 +1,11 @@
+
+=== 0.1.0
+
+- initial public release
+- rid of dependency on stl2pov
+- can read binary files
+
+=== 0.1.1
+
+- bugfix: handedness of axis was wrong in pov mesh conversion
+
