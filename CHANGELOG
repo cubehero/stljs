@@ -9,3 +9,7 @@
 
 - bugfix: handedness of axis was wrong in pov mesh conversion
 
+=== 0.1.2
+
+- bugfix: the chunking of binary data is now fixed
+
