@@ -224,6 +224,8 @@ class Stl.BinaryParser extends Stl.Parser
   VECTOR_SIZE = 3 * 4
 
   constructor: () ->
+    @remainingBuf = null
+    @remainingLen = 0
 
   parse: (input, callback, progressCb) ->
     totalLen = 0
@@ -275,15 +277,28 @@ class Stl.BinaryParser extends Stl.Parser
     return [x, y, z]
 
   chunkData: (buffer, numBytes, iterator) ->
-    remainingBuf = null
-
     i = 0
     while i < buffer.length
       if (i + numBytes) <= buffer.length
-        chunk = buffer.slice(i, i + numBytes)
+        if @remainingBuf is null
+          chunk = buffer.slice(i, i + numBytes)
+          iterator(chunk)
+          i += numBytes
+        else
+          # copy @remainingBuf, and the difference in offset
+          buffer.copy(@remainingBuf, @remainingLen, 0, numBytes - @remainingLen)
+          iterator(@remainingBuf)
+
+          # add offset to i
+          i += numBytes - @remainingLen
+          @remainingBuf = null
+          @remainingLen = 0
       else
-        chunk = buffer.slice(i, buffer.length - i)
-      iterator(chunk)
-      i += numBytes
+        @remainingBuf = new Buffer(numBytes)
+        @remainingBuf.fill(0)
+
+        @remainingLen = buffer.length - i
+        buffer.copy(@remainingBuf, 0, i, buffer.length)
+        i += @remainingLen + 1
 
 module.exports = new Stl.Parser()
