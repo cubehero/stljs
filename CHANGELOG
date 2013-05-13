@@ -13,3 +13,8 @@
 
 - bugfix: the chunking of binary data is now fixed
 
+=== 0.1.3
+
+- bugfix: viewing angle was too low. model not shown if offset
+- bugfix: running multiple image conversions at the same time tramped each
+other
