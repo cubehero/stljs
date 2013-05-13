@@ -10,7 +10,6 @@ class Stl
 class Stl.Image
 
   constructor: () ->
-    @locals = {}
     @filePath = __dirname + "/../../template/povray.tmpl"
 
   # (input, [options], callback, [progressCb])
@@ -21,6 +20,7 @@ class Stl.Image
       dst: "./result.png"
     }
     stderrStr = ""
+    locals = {}
 
     if typeof arguments[1] is 'function'
       callback = arguments[1]
@@ -35,8 +35,10 @@ class Stl.Image
         , (err, povData, name) =>
           (callback(err); return) if err?
 
-          @locals.modelData = povData
-          @locals.modelName = name
+          # we need a unique fileName so it's safe to run multi-threaded
+          locals.modelData = povData
+          locals.modelName = name
+          locals.fileName = name + '_' + Math.floor(Math.random() * 1000000 + 1)
 
           thenInsertIntoTemplate()
 
@@ -45,20 +47,20 @@ class Stl.Image
           progressCb() if progressCb?
 
     thenInsertIntoTemplate = () =>
-      @renderTemplate(@filePath, (err, povInput) =>
+      @renderTemplate(@filePath, locals, (err, povInput) =>
         (callback(err); return) if err?
         thenWriteToTempFile(povInput)
       )
     
     thenWriteToTempFile = (povInput) =>
-      fs.writeFile("/tmp/#{@locals.modelName}.pov", povInput, (err) ->
+      fs.writeFile("/tmp/#{locals.fileName}.pov", povInput, (err) ->
         (callback(err); return) if err?
         thenRenderToImage('temp.pov')
       )
 
     thenRenderToImage = (povFileName) =>
       povcmd = child_proc.spawn('povray',
-        ['-s', "-i/tmp/#{@locals.modelName}.pov", "+FN",
+        ['-s', "-i/tmp/#{locals.fileName}.pov", "+FN",
          "+W#{options.width}", "+H#{options.height}",
          "-o#{options.dst}", "+Q9", "+AM1", "+A", "+UA"])
 
@@ -80,10 +82,10 @@ class Stl.Image
 
     start()
 
-  renderTemplate: (filePath, callback) ->
+  renderTemplate: (filePath, locals, callback) ->
     fs.readFile(filePath, (err, buffer) =>
       (callback(err); return) if err?
-      result = Mustache.render(buffer.toString(), @locals)
+      result = Mustache.render(buffer.toString(), locals)
       callback(null, result)
     )
 
