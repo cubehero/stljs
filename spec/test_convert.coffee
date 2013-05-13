@@ -12,4 +12,21 @@ test_convert_stl = ->
     throw err if err?
     console.log "done rendering binary"
 
+  fileName = __dirname + "/fixtures/flat.stl"
+  stl.imageify fileName, { dst: 'flat.png' }, (err) ->
+    throw err if err?
+    console.log "done rendering flat"
+
+  fileName = __dirname + "/fixtures/tall.stl"
+  stl.imageify fileName, { dst: 'tall.png' }, (err) ->
+    throw err if err?
+    console.log "done rendering tall"
+
+
+  fileName = __dirname + "/fixtures/offset.stl"
+  stl.imageify fileName, { dst: 'offset.png' }, (err) ->
+    throw err if err?
+    console.log "done rendering offset"
+
+
 test_convert_stl()

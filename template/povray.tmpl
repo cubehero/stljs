@@ -16,24 +16,37 @@ global_settings {
 
 {{{modelData}}}
 
-#declare Min = min_extent({{modelName}});
-#declare Max = max_extent({{modelName}});
+#declare Min_ext = min_extent({{modelName}});
+#declare Max_ext = max_extent({{modelName}});
 
-#declare bottom_diag = sqrt(pow(Max.y - Min.y, 2) + pow(Max.x - Min.x, 2));
-#debug concat("bottom_diag:", str(bottom_diag, 5, 0))
-#declare box_diag = sqrt(pow(bottom_diag, 2) + pow(Max.z - Min.z, 2));
-#debug concat("box_diag:", str(box_diag, 5, 0))
+#declare X_len = Max_ext.x - Min_ext.x;
+#declare Y_len = Max_ext.y - Min_ext.y;
+#declare Z_len = Max_ext.z - Min_ext.z;
 
+#declare Radius = max(X_len / atan(pi / 6), Y_len / atan(pi / 6), Z_len / atan(pi / 6));
+#declare Theta = -pi / 2 * pow(2.71828, -Y_len / X_len);
+#declare Phi = -pi / 2 * pow(2.71828, -Z_len / (X_len + Y_len));
 
-#declare look_angle = degrees(tanh((Max.z - Min.z) / (bottom_diag / 2)));
-#declare look_at_z = (Max.z - Min.z) / 2;
+#declare X_offset = Min_ext.x + X_len / 2;
+#declare Y_offset = Min_ext.y + Y_len / 2;
+#declare Z_offset = Min_ext.z;
+
+#declare X_pos = Radius * sin(Theta) * cos(Phi) + X_offset;
+#declare Y_pos = Radius * sin(Theta) * sin(Phi) + Y_offset;
+#declare Z_pos = Radius * cos(Theta) + Z_offset;
+
+#declare look_at_z = (Max_ext.z - Min_ext.z) / 2;
+
+#debug concat("radius:", str(Radius, 5, 0))
+#debug concat("theta:", str(Theta, 5, 0))
+#debug concat("phi:", str(Phi, 5, 0))
 #debug concat("look_at:", str(look_at_z, 5, 0))
 
 camera {
   orthographic
-  location <0,box_diag + 1,0>
-  rotate <look_angle,0,40>
-  look_at <0,0,look_at_z>
+  location <X_pos, Y_pos, Z_pos>
+  sky <0, 0, 1>
+  look_at <X_offset, Y_offset, look_at_z>
 }
 
 sky_sphere
