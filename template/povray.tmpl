@@ -23,7 +23,7 @@ global_settings {
 #declare Y_len = Max_ext.y - Min_ext.y;
 #declare Z_len = Max_ext.z - Min_ext.z;
 
-#declare Radius = max(X_len / atan(pi / 6), Y_len / atan(pi / 6), Z_len / atan(pi / 6));
+#declare Radius = max(X_len / atan(pi / 5), Y_len / atan(pi / 5), Z_len / atan(pi / 5));
 #declare Theta = -pi / 2 * pow(2.71828, -Y_len / X_len);
 #declare Phi = -pi / 2 * pow(2.71828, -Z_len / (X_len + Y_len));
 
