@@ -18,15 +18,18 @@ class Stl.PovRay
       (err, polygons, name) =>
         (callback(err); return) if err?
 
+        unique_name = '__' + name + '__'
         output += @._povFooters()
-        callback(null, output, name)
+        callback(null, output, unique_name)
       , (err, polygon, name) =>
+
+        unique_name = '__' + name + '__'
         if output.length is 0
-          output += @._povHeaders(name)
+          output += @._povHeaders(unique_name)
 
         povPolygon = @.convertPolygon(polygon)
         output += povPolygon
-        progressCb(err, povPolygon, name) if progressCb?
+        progressCb(err, povPolygon, unique_name) if progressCb?
 
   convertPolygon: (polygon) ->
     output = ""
