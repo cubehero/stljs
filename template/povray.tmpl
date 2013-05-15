@@ -25,7 +25,7 @@ global_settings {
 
 #declare Radius = max(X_len / atan(pi / 5), Y_len / atan(pi / 5), Z_len / atan(pi / 5));
 #declare Theta = -pi / 2 * pow(2.71828, -Y_len / X_len);
-#declare Phi = -pi / 2 * pow(2.71828, -Z_len / (X_len + Y_len));
+#declare Phi = -pi / 2 * pow(2.71828, -Z_len / 2 / (X_len + Y_len));
 
 #declare X_offset = Min_ext.x + X_len / 2;
 #declare Y_offset = Min_ext.y + Y_len / 2;
