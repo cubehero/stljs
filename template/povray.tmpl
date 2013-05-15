@@ -35,7 +35,7 @@ global_settings {
 #declare Y_pos = Radius * sin(Theta) * sin(Phi) + Y_offset;
 #declare Z_pos = Radius * cos(Theta) + Z_offset;
 
-#declare look_at_z = (Max_ext.z - Min_ext.z) / 2;
+#declare look_at_z = (Max_ext.z - Min_ext.z) / 4;
 
 #debug concat("radius:", str(Radius, 5, 0))
 #debug concat("theta:", str(Theta, 5, 0))
