@@ -18,3 +18,10 @@
 - bugfix: viewing angle was too low. model not shown if offset
 - bugfix: running multiple image conversions at the same time tramped each
 other
+
+=== 0.1.4
+
+- bugfix: model name needs to be escaped in case it happens to be a povray
+command
+- bugfix: change the viewing angle a bit
+
