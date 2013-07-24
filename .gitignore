@@ -4,3 +4,7 @@ src/*.js
 src/parser/*.js
 src/to/*.js
 spec/*.js
+.DS_Store
+node_modules
+*.swp
+*.swo
