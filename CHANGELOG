@@ -25,3 +25,6 @@ other
 command
 - bugfix: change the viewing angle a bit
 
+=== 0.1.5
+
+- bugfix: imageify not reporting error correctly

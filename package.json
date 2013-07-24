@@ -1,6 +1,6 @@
 {
   "name": "stljs",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": "Wil Chung",
   "description": "Read, parse, and convert STL files",
   "keywords": ["stl", "3D model", "3D printing", "stereolithography"],
