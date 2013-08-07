@@ -1,6 +1,7 @@
 # Stljs
 
-A fast library to read and write STL files.
+A fast library to read and write STL files from [Cubehero](https://cubehero.com).
+It also allows you to export to PNG using POV-RAY.
 
 Note: Currently, the readFile works for both binary and ascii files, but writing
 STL files is only in ASCII
