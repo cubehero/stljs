@@ -51,7 +51,7 @@ class Stl.Image
         (callback(err); return) if err?
         thenWriteToTempFile(povInput)
       )
-    
+
     thenWriteToTempFile = (povInput) =>
       fs.writeFile("/tmp/#{locals.fileName}.pov", povInput, (err) ->
         (callback(err); return) if err?
@@ -60,7 +60,7 @@ class Stl.Image
 
     thenRenderToImage = (povFileName) =>
       povcmd = child_proc.spawn('povray',
-        ['-s', "-i/tmp/#{locals.fileName}.pov", "+FN",
+        ["/tmp/#{locals.fileName}.pov", "+FN",
          "+W#{options.width}", "+H#{options.height}",
          "-o#{options.dst}", "+Q9", "+AM1", "+A", "+UA"])
 
