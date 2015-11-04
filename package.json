@@ -19,7 +19,6 @@
     "url": "http://github.com/cubehero/stljs.git"
   },
   "dependencies": {
-    "lodash": "^3.10.1",
     "mustache": "0.7.x"
   },
   "devDependencies": {
