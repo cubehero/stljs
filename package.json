@@ -3,7 +3,12 @@
   "version": "0.1.5",
   "author": "Wil Chung",
   "description": "Read, parse, and convert STL files",
-  "keywords": ["stl", "3D model", "3D printing", "stereolithography"],
+  "keywords": [
+    "stl",
+    "3D model",
+    "3D printing",
+    "stereolithography"
+  ],
   "homepage": "http://github.com/cubehero/stljs",
   "bugs": {
     "url": "http://github.com/cubehero/stljs/issues"
@@ -14,6 +19,7 @@
     "url": "http://github.com/cubehero/stljs.git"
   },
   "dependencies": {
+    "lodash": "^3.10.1",
     "mustache": "0.7.x"
   },
   "devDependencies": {
